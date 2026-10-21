@@ -1,0 +1,1003 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Money | FedNow Shares</title>
+
+<style>
+:root {
+    --navy: #103570;
+    --blue: #528fe0;
+    --light: #f3f7fb;
+    --text: #34445c;
+    --muted: #778395;
+    --border: #e4eaf2;
+    --white: #ffffff;
+    --green: #16856f;
+    --green-light: #e9f7f2;
+    --yellow: #fff7df;
+    --yellow-border: #f1dfaa;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+button,
+a {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+}
+
+/* HEADER */
+
+.topbar {
+    background: var(--white);
+    min-height: 82px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(16, 53, 112, 0.04);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--navy);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+.brand-icon {
+    width: 39px;
+    height: 39px;
+    background: var(--navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.brand-icon svg {
+    width: 23px;
+    height: 23px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.nav-button {
+    width: 43px;
+    height: 43px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.nav-button:hover {
+    background: var(--light);
+    border-color: #c9d8ed;
+}
+
+.nav-button.home {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
+}
+
+.nav-button.home:hover {
+    background: #17488e;
+}
+
+.nav-button svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* PAGE */
+
+.page {
+    max-width: 960px;
+    width: calc(100% - 40px);
+    margin: 36px auto 65px;
+}
+
+.page-heading {
+    margin-bottom: 25px;
+}
+
+.breadcrumb {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.breadcrumb a {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+.page-heading h1 {
+    color: var(--navy);
+    font-size: 29px;
+    line-height: 1.25;
+    margin-bottom: 7px;
+}
+
+.page-heading p {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* ACCOUNT NOTICE */
+
+.upgrade-notice {
+    background: var(--yellow);
+    border: 1px solid var(--yellow-border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.notice-icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #ffe8a0;
+    color: #765400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notice-icon svg {
+    width: 23px;
+    height: 23px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.notice-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #624b0d;
+    margin-bottom: 5px;
+}
+
+.notice-text {
+    color: #685c3b;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* DEPOSIT CARD */
+
+.deposit-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 5px 22px rgba(16, 53, 112, 0.045);
+}
+
+.card-header {
+    min-height: 82px;
+    padding: 19px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-heading-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #eaf2ff;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-heading-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.card-header h2 {
+    font-size: 18px;
+    color: var(--navy);
+    font-weight: 700;
+}
+
+.card-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+.history-button {
+    background: var(--navy);
+    color: white;
+    border: 0;
+    padding: 12px 17px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    transition: 0.2s ease;
+}
+
+.history-button:hover {
+    background: #17488e;
+    transform: translateY(-1px);
+}
+
+/* DEPOSIT STATUS */
+
+.deposit-content {
+    margin: 24px;
+    padding: 48px 24px 42px;
+    border: 1px solid #d4ebe3;
+    border-radius: 13px;
+    background: linear-gradient(145deg, #f2fbf7 0%, #e5f5ee 100%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.status-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: var(--green);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(22, 133, 111, 0.17);
+}
+
+.status-icon svg {
+    width: 34px;
+    height: 34px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.status-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #11745f;
+    background: #d7f1e7;
+    border: 1px solid #c3e8da;
+    border-radius: 30px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 17px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #16856f;
+}
+
+.deposit-amount {
+    font-size: 30px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
+}
+
+.deposit-message {
+    max-width: 440px;
+    color: #50675f;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.transaction-box {
+    width: min(100%, 440px);
+    margin-top: 29px;
+    padding: 15px 17px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid #d6e9e1;
+    border-radius: 9px;
+    text-align: left;
+}
+
+.transaction-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    color: #71857e;
+    margin-bottom: 6px;
+}
+
+.transaction-id {
+    display: block;
+    font-size: 14px;
+    color: #2d5147;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.deposit-again {
+    margin-top: 28px;
+    min-width: 205px;
+    padding: 14px 22px;
+    background: var(--navy);
+    border: 1px solid var(--navy);
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    transition: 0.2s ease;
+}
+
+.deposit-again:hover {
+    background: #17488e;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(16, 53, 112, 0.13);
+}
+
+/* FOOTER */
+
+.page-footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 26px;
+}
+
+/* CUSTOMER SUPPORT */
+
+.chat-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 59px;
+    height: 59px;
+    border-radius: 50%;
+    border: none;
+    background: #1760d5;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 18px rgba(16, 53, 112, 0.25);
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform 0.2s ease;
+}
+
+.chat-button:hover {
+    transform: translateY(-3px);
+}
+
+.chat-button svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+}
+
+.chat-dot {
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+    height: 16px;
+    width: 16px;
+    background: #39d29b;
+    border: 3px solid white;
+    border-radius: 50%;
+}
+
+.support-menu {
+    display: none;
+    position: fixed;
+    right: 25px;
+    bottom: 96px;
+    z-index: 1000;
+    background: white;
+    padding: 19px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    box-shadow: 0 8px 30px rgba(16, 53, 112, 0.17);
+    width: 245px;
+}
+
+.support-menu.open {
+    display: block;
+    animation: menuIn 0.18s ease-out;
+}
+
+@keyframes menuIn {
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.support-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 5px;
+}
+
+.support-description {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+.support-link {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 12px 10px;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    transition: opacity 0.2s ease;
+}
+
+.email-support {
+    background: var(--blue);
+    margin-bottom: 9px;
+}
+
+.whatsapp-support {
+    background: #20b966;
+}
+
+.support-link:hover {
+    opacity: 0.9;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
+    .topbar {
+        min-height: 72px;
+        padding: 0 18px;
+    }
+
+    .brand {
+        font-size: 15px;
+        gap: 8px;
+    }
+
+    .brand-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .nav-right {
+        gap: 7px;
+    }
+
+    .nav-button {
+        width: 37px;
+        height: 37px;
+        border-radius: 8px;
+    }
+
+    .page {
+        width: calc(100% - 28px);
+        margin: 27px auto 45px;
+    }
+
+    .page-heading h1 {
+        font-size: 25px;
+    }
+
+    .page-heading p {
+        font-size: 14px;
+    }
+
+    .upgrade-notice {
+        padding: 17px;
+        gap: 12px;
+        margin-bottom: 19px;
+    }
+
+    .notice-icon {
+        width: 39px;
+        height: 39px;
+        border-radius: 10px;
+    }
+
+    .notice-title {
+        font-size: 14px;
+    }
+
+    .notice-text {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .card-header {
+        padding: 16px;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .card-heading {
+        gap: 9px;
+    }
+
+    .card-heading-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .card-header h2 {
+        font-size: 16px;
+    }
+
+    .card-subtitle {
+        font-size: 11px;
+    }
+
+    .history-button {
+        padding: 11px 10px;
+        font-size: 10px;
+    }
+
+    .deposit-content {
+        margin: 13px;
+        padding: 37px 16px 32px;
+    }
+
+    .status-icon {
+        width: 67px;
+        height: 67px;
+        margin-bottom: 17px;
+    }
+
+    .deposit-amount {
+        font-size: 26px;
+    }
+
+    .deposit-message {
+        font-size: 14px;
+    }
+
+    .transaction-box {
+        padding: 13px;
+        margin-top: 24px;
+    }
+
+    .transaction-id {
+        font-size: 13px;
+    }
+
+    .deposit-again {
+        margin-top: 23px;
+        width: 100%;
+        max-width: 260px;
+    }
+
+    .chat-button {
+        width: 54px;
+        height: 54px;
+        right: 14px;
+        bottom: 20px;
+    }
+
+    .chat-button svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .support-menu {
+        right: 14px;
+        bottom: 85px;
+    }
+}
+
+@media (max-width: 370px) {
+    .topbar {
+        padding: 0 10px;
+    }
+
+    .brand {
+        font-size: 13px;
+    }
+
+    .nav-right {
+        gap: 5px;
+    }
+
+    .nav-button {
+        width: 33px;
+        height: 34px;
+    }
+
+    .page {
+        width: calc(100% - 20px);
+    }
+
+    .card-header {
+        padding: 12px;
+    }
+
+    .card-heading {
+        gap: 7px;
+    }
+
+    .card-heading-icon {
+        display: none;
+    }
+
+    .history-button {
+        padding: 10px 8px;
+        font-size: 9px;
+    }
+
+    .deposit-content {
+        margin: 9px;
+        padding: 30px 12px;
+    }
+
+    .deposit-amount {
+        font-size: 23px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <a class="brand" href="index.html" style="text-decoration:none;">
+        <span class="brand-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 19V9l4-4 4 4v10"/>
+                <path d="M12 19V5l4-2 4 2v14"/>
+                <path d="M2 19h20"/>
+                <path d="M7 12h2M15 8h2M15 12h2"/>
+            </svg>
+        </span>
+        <span>FEDNOW SHARES</span>
+    </a>
+
+    <div class="nav-right">
+
+        <button class="nav-button"
+                onclick="history.back()"
+                aria-label="Go back"
+                title="Go back">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 12H5M11 6l-6 6 6 6"/>
+            </svg>
+        </button>
+
+        <button class="nav-button home"
+                onclick="location.href='index.html'"
+                aria-label="Home"
+                title="Home">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 11L12 4l9 7M6 10v10h12V10M10 20v-6h4v6"/>
+            </svg>
+        </button>
+
+        <button class="nav-button"
+                onclick="toggleMenu()"
+                aria-label="Open dashboard"
+                title="Dashboard">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 5h6v6H4zM14 5h6v6h-6zM4 15h6v5H4zM14 15h6v5h-6z"/>
+            </svg>
+        </button>
+
+        <button class="nav-button"
+                onclick="location.href='index.html'"
+                aria-label="Profile"
+                title="Profile">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21v-2a8 8 0 0 1 16 0v2"/>
+            </svg>
+        </button>
+
+    </div>
+</header>
+
+<main class="page">
+
+    <section class="page-heading">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> / Add Money
+        </div>
+
+        <h1>Add Money</h1>
+        <p>Review your deposit information and manage your account funding.</p>
+    </section>
+
+    <section class="upgrade-notice" aria-label="Account notice">
+
+        <div class="notice-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3 22 20H2L12 3Z"/>
+                <path d="M12 9v5M12 17h.01"/>
+            </svg>
+        </div>
+
+        <div>
+            <div class="notice-title">Active Account</div>
+
+            <p class="notice-text">
+                Dear Customer, a minimum deposit of $50 is required to complete the initial deposit. Partial payments are not accepted.
+            </p>
+        </div>
+
+    </section>
+
+    <section class="deposit-card">
+
+        <div class="card-header">
+
+            <div class="card-heading">
+
+                <div class="card-heading-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="5" width="18" height="14" rx="2"/>
+                        <path d="M3 10h18M7 15h4"/>
+                    </svg>
+                </div>
+
+                <div>
+                    <h2>Deposit Details</h2>
+                    <p class="card-subtitle">Your deposit summary</p>
+                </div>
+
+            </div>
+
+            <button class="history-button"
+                    onclick="location.href='add-money-log.html'">
+                DEPOSIT HISTORY
+            </button>
+
+        </div>
+
+        <div class="deposit-content">
+
+            <div class="status-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="m5 12 5 5L20 6"/>
+                </svg>
+            </div>
+
+            <div class="status-label">
+                <span class="status-dot"></span>
+                Payment Verified
+            </div>
+
+            <h2 class="deposit-amount" id="depositAmount">
+                $100.00 Deposit
+            </h2>
+
+            <p class="deposit-message" id="depositMessage">
+                Amount has been added into your account. Your payment is verified.
+            </p>
+
+            <div class="transaction-box">
+                <span class="transaction-label">TRANSACTION ID</span>
+                <span class="transaction-id" id="transactionId">
+                    FED6885R4GH
+                </span>
+            </div>
+
+            <button class="deposit-again"
+                    onclick="location.href='add-money.html'">
+                + DEPOSIT AGAIN
+            </button>
+
+        </div>
+
+    </section>
+
+    <footer class="page-footer">
+        © 2026 FedNow Shares. All rights reserved.
+    </footer>
+
+</main>
+
+<!-- CUSTOMER SUPPORT BUTTON -->
+
+<button class="chat-button"
+        onclick="openSupport()"
+        aria-label="Open customer support options"
+        aria-expanded="false"
+        aria-controls="supportMenu">
+
+    <svg viewBox="0 0 24 24">
+        <path d="M12 3C6.9 3 3 6.5 3 11c0 2.1.9 4 2.5 5.4L5 21l4.8-2.1c.7.2 1.5.3 2.2.3 5.1 0 9-3.5 9-8.2S17.1 3 12 3Zm0 2c3.9 0 7 2.5 7 6s-3.1 6.2-7 6.2c-.7 0-1.5-.1-2.2-.3l-.7-.2-2.1.9.2-2.2-.7-.6C5.5 13.7 5 12.4 5 11c0-3.5 3.1-6 7-6Z"/>
+    </svg>
+
+    <span class="chat-dot"></span>
+</button>
+
+<!-- CUSTOMER SUPPORT OPTIONS -->
+
+<div class="support-menu"
+     id="supportMenu"
+     aria-label="Customer support options">
+
+    <p class="support-title">Customer Support</p>
+    <p class="support-description">How can we help you today?</p>
+
+    <a class="support-link email-support"
+       href="mailto:Fednowsharesteam@gmail.com?subject=Fednow%20Shares%20Customer%20Support">
+        Email Support
+    </a>
+
+    <a class="support-link whatsapp-support"
+       href="https://wa.me/447549589541"
+       target="_blank"
+       rel="noopener noreferrer">
+        WhatsApp Support
+    </a>
+
+</div>
+
+<script>
+function toggleMenu() {
+    location.href = "dashboard.html";
+}
+
+function openSupport() {
+    const supportMenu = document.getElementById("supportMenu");
+    const chatButton = document.querySelector(".chat-button");
+    const isOpen = supportMenu.classList.toggle("open");
+
+    chatButton.setAttribute("aria-expanded", String(isOpen));
+}
+
+function closeSupport() {
+    const supportMenu = document.getElementById("supportMenu");
+    const chatButton = document.querySelector(".chat-button");
+
+    supportMenu.classList.remove("open");
+    chatButton.setAttribute("aria-expanded", "false");
+}
+
+document.addEventListener("click", function(event) {
+    const supportMenu = document.getElementById("supportMenu");
+    const chatButton = document.querySelector(".chat-button");
+
+    if (!supportMenu.contains(event.target) &&
+        !chatButton.contains(event.target)) {
+        closeSupport();
+    }
+});
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeSupport();
+    }
+});
+
+/* Read the deposit amount from the URL when provided. */
+const params = new URLSearchParams(window.location.search);
+const amountValue = params.get("amount");
+const amount = Number(amountValue);
+
+if (
+    amountValue !== null &&
+    amountValue.trim() !== "" &&
+    Number.isFinite(amount) &&
+    amount > 0
+) {
+    document.getElementById("depositAmount").textContent =
+        "$" + amount.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }) + " Deposit";
+}
+
+/*
+  IMPORTANT:
+  The displayed payment status and transaction ID are sample page content.
+  A real payment system must retrieve the verified status and transaction ID
+  from a trusted backend after confirming the payment.
+*/
+</script>
+
+</body>
+</html>

@@ -1,0 +1,766 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Account Levels | Fednow Shares</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* MAIN WEBSITE COLORS */
+            --navy: #103570;
+            --blue: #528fe0;
+            --light-bg: #f3f7fb;
+            --text: #34445c;
+            --white: #ffffff;
+
+            /* ANNOUNCEMENT COLORS
+               Change to green: #e5f7eb
+               Change to red:   #fde8e8
+            */
+            --notice-bg: #e5f7eb;
+            --notice-border: #24a148;
+            --notice-text: #176b35;
+
+            --success: #18864b;
+            --border: #e1e8f0;
+        }
+
+        body {
+            margin: 0;
+            background: var(--light-bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topbar {
+            background: var(--navy);
+            color: var(--white);
+            padding: 20px 24px;
+            box-shadow: 0 3px 12px rgba(16, 53, 112, 0.12);
+        }
+
+        .topbar-inner {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+        }
+
+        .brand span {
+            color: #9ec7ff;
+        }
+
+        .header-link {
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.45);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .header-link:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 28px 20px 45px;
+        }
+
+        /* EDITABLE ANNOUNCEMENT */
+
+        .announcement {
+            background: var(--notice-bg);
+            border: 1px solid var(--notice-border);
+            border-left: 5px solid var(--notice-border);
+            color: var(--notice-text);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .announcement-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 10px;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .notice-icon {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.7);
+            font-size: 17px;
+        }
+
+        .announcement p {
+            margin: 0 0 17px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .submit-button {
+            display: inline-block;
+            background: var(--navy);
+            color: white;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .submit-button:hover {
+            background: #194a91;
+            transform: translateY(-1px);
+        }
+
+        /* PAGE INTRODUCTION */
+
+        .page-intro {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            background: #e3edfc;
+            color: var(--navy);
+            border-radius: 30px;
+            padding: 7px 13px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .page-intro h1 {
+            margin: 0 0 12px;
+            color: var(--navy);
+            font-size: 32px;
+            line-height: 1.25;
+        }
+
+        .page-intro p {
+            margin: 0 auto;
+            max-width: 620px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #68778b;
+        }
+
+        /* ACCOUNT SUMMARY */
+
+        .summary-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(16, 53, 112, 0.035);
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: #78869a;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 7px;
+        }
+
+        .summary-level {
+            font-size: 20px;
+            color: var(--navy);
+            font-weight: 800;
+        }
+
+        .summary-range {
+            margin-top: 6px;
+            color: #68778b;
+            font-size: 13px;
+        }
+
+        .current-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 12px;
+            border-radius: 30px;
+            background: #e5f7eb;
+            color: #176b35;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .current-dot {
+            height: 7px;
+            width: 7px;
+            background: #24a148;
+            border-radius: 50%;
+        }
+
+        /* LEVEL CARDS */
+
+        .section-heading {
+            margin: 0 0 17px;
+            color: var(--navy);
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .level-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 5px 18px rgba(16, 53, 112, 0.045);
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+
+        .level-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(16, 53, 112, 0.09);
+        }
+
+        .level-card.active {
+            border: 2px solid var(--success);
+            background: linear-gradient(180deg, #f4fff7 0%, #ffffff 45%);
+        }
+
+        .level-card.active::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--success);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .level-number {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #e8f0fc;
+            color: var(--navy);
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .active .level-number {
+            background: #d8f4e1;
+            color: #176b35;
+        }
+
+        .level-status {
+            background: #f0f3f7;
+            color: #64748b;
+            padding: 7px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            text-align: center;
+        }
+
+        .active .level-status {
+            background: #d8f4e1;
+            color: #176b35;
+        }
+
+        .level-card h3 {
+            margin: 0 0 8px;
+            color: var(--navy);
+            font-size: 21px;
+        }
+
+        .level-description {
+            color: #7a8799;
+            font-size: 13px;
+            margin: 0 0 22px;
+            line-height: 1.6;
+        }
+
+        .limit-box {
+            background: var(--light-bg);
+            border: 1px solid #e8eef6;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .active .limit-box {
+            background: #f0faf3;
+            border-color: #d7efdf;
+        }
+
+        .limit-label {
+            font-size: 11px;
+            color: #7b899b;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .limit-value {
+            font-size: 25px;
+            font-weight: 800;
+            color: var(--navy);
+            overflow-wrap: anywhere;
+        }
+
+        .limit-value small {
+            font-size: 13px;
+            font-weight: 600;
+            color: #718096;
+        }
+
+        .level-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            background: var(--navy);
+            color: white;
+            border: 1px solid var(--navy);
+            border-radius: 9px;
+            padding: 14px 15px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .level-button:hover {
+            background: #194a91;
+            border-color: #194a91;
+        }
+
+        .level-button.current-button {
+            background: #e5f7eb;
+            color: #176b35;
+            border-color: #bce5c9;
+            cursor: default;
+        }
+
+        .level-button.current-button:hover {
+            background: #e5f7eb;
+        }
+
+        .footer-note {
+            margin-top: 28px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 20px;
+            color: #68778b;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .footer-note strong {
+            color: var(--navy);
+        }
+
+        .bottom-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .bottom-links a {
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .bottom-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 650px) {
+            .topbar {
+                padding: 17px 15px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .header-link {
+                padding: 9px 10px;
+                font-size: 11px;
+            }
+
+            .container {
+                padding: 22px 14px 35px;
+            }
+
+            .page-intro h1 {
+                font-size: 27px;
+            }
+
+            .levels-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .level-card {
+                padding: 21px;
+            }
+
+            .summary-card {
+                padding: 17px;
+                align-items: flex-start;
+            }
+
+            .summary-level {
+                font-size: 18px;
+            }
+
+            .current-pill {
+                font-size: 9px;
+                padding: 8px;
+            }
+
+            .announcement {
+                padding: 17px;
+            }
+
+            .limit-value {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .topbar-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .summary-card {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">Fednow <span>Shares</span></div>
+
+            <a href="dashboard.html" class="header-link">
+                ← Dashboard
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!--
+            EDITABLE ANNOUNCEMENT:
+            Change the heading and message below whenever you want.
+            Change the notice colors in :root at the top of the CSS.
+            Green: --notice-bg: #e5f7eb;
+                   --notice-border: #24a148;
+                   --notice-text: #176b35;
+            Red:   --notice-bg: #fde8e8;
+                   --notice-border: #dc2626;
+                   --notice-text: #991b1b;
+        -->
+
+        <section class="announcement">
+            <h2 class="announcement-heading">
+                <span class="notice-icon">!</span>
+                <span id="noticeHeading">Important Account Notice</span>
+            </h2>
+
+            <p id="noticeMessage">
+                Review the account levels below to understand the available
+                account tier limits. If you need to add funds before proceeding,
+                click the Submit button below to continue.
+            </p>
+
+            <a href="add-money.html" class="submit-button" id="noticeButton">
+                SUBMIT
+            </a>
+        </section>
+
+        <section class="page-intro">
+            <div class="eyebrow">ACCOUNT MANAGEMENT</div>
+
+            <h1>Account Levels</h1>
+
+            <p>
+                Explore the four account levels and their corresponding
+                investment ranges. Your current level is clearly indicated
+                below for easy reference.
+            </p>
+        </section>
+
+        <!-- CURRENT LEVEL SUMMARY -->
+
+        <section class="summary-card">
+            <div>
+                <div class="summary-label">Your Current Account Level</div>
+                <div class="summary-level">Level 1</div>
+                <div class="summary-range">Investment range: $1 – $500</div>
+            </div>
+
+            <div class="current-pill">
+                <span class="current-dot"></span>
+                CURRENT LEVEL
+            </div>
+        </section>
+
+        <h2 class="section-heading">Choose Your Account Level</h2>
+
+        <section class="levels-grid">
+
+            <!-- LEVEL 1: CURRENT LEVEL -->
+
+            <article class="level-card active">
+                <div class="card-top">
+                    <div class="level-number">01</div>
+                    <div class="level-status">CURRENT LEVEL</div>
+                </div>
+
+                <h3>Level 1</h3>
+                <p class="level-description">
+                    Your currently selected account level.
+                </p>
+
+                <div class="limit-box">
+                    <div class="limit-label">Investment Range</div>
+                    <div class="limit-value">
+                        $1 <small>to</small> $500
+                    </div>
+                </div>
+
+                <span class="level-button current-button">
+                    ✓ YOUR CURRENT LEVEL
+                </span>
+            </article>
+
+            <!-- LEVEL 2 -->
+
+            <article class="level-card">
+                <div class="card-top">
+                    <div class="level-number">02</div>
+                    <div class="level-status">UPGRADE AVAILABLE</div>
+                </div>
+
+                <h3>Level 2</h3>
+                <p class="level-description">
+                    The next account level in the available level structure.
+                </p>
+
+                <div class="limit-box">
+                    <div class="limit-label">Investment Range</div>
+                    <div class="limit-value">
+                        $500 <small>to</small> $2,000
+                    </div>
+                </div>
+
+                <a href="add-money.html" class="level-button">
+                    UPGRADE ACCOUNT →
+                </a>
+            </article>
+
+            <!-- LEVEL 3 -->
+
+            <article class="level-card">
+                <div class="card-top">
+                    <div class="level-number">03</div>
+                    <div class="level-status">UPGRADE AVAILABLE</div>
+                </div>
+
+                <h3>Level 3</h3>
+                <p class="level-description">
+                    A higher account level with an increased investment range.
+                </p>
+
+                <div class="limit-box">
+                    <div class="limit-label">Investment Range</div>
+                    <div class="limit-value">
+                        $2,000 <small>to</small> $10,000
+                    </div>
+                </div>
+
+                <a href="add-money.html" class="level-button">
+                    UPGRADE ACCOUNT →
+                </a>
+            </article>
+
+            <!-- LEVEL 4 -->
+
+            <article class="level-card">
+                <div class="card-top">
+                    <div class="level-number">04</div>
+                    <div class="level-status">UPGRADE AVAILABLE</div>
+                </div>
+
+                <h3>Level 4</h3>
+                <p class="level-description">
+                    The highest account level in the current level structure.
+                </p>
+
+                <div class="limit-box">
+                    <div class="limit-label">Investment Range</div>
+                    <div class="limit-value">
+                        $10,000 <small>to</small> Unlimited
+                    </div>
+                </div>
+
+                <a href="add-money.html" class="level-button">
+                    UPGRADE ACCOUNT →
+                </a>
+            </article>
+
+        </section>
+
+        <section class="footer-note">
+            <strong>Important:</strong>
+            To upgrade your account to higher limit choose a prefer account tier limit and click the upgrade button to continue
+            
+        </section>
+
+        <nav class="bottom-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="add-money.html">Add Money</a>
+            <a href="transactions.html">Transaction History</a>
+            <a href="index.html">Home</a>
+        </nav>
+
+    </main>
+
+    <script>
+        /*
+          OPTIONAL NOTICE SETTINGS
+
+          You can edit these values instead of searching through the HTML.
+          For a green notice, use "green".
+          For a red notice, use "red".
+        */
+
+        const accountNotice = {
+            color: "green",
+
+            heading: "Important Account Notice",
+
+            message:
+                "Review the account levels below to understand the available investment ranges. If you need to add funds before proceeding, click the Submit button below to continue to the deposit page.",
+
+            buttonText: "SUBMIT",
+
+            buttonLink: "add-money.html"
+        };
+
+        const noticeColors = {
+            green: {
+                background: "#e5f7eb",
+                border: "#24a148",
+                text: "#176b35"
+            },
+
+            red: {
+                background: "#fde8e8",
+                border: "#dc2626",
+                text: "#991b1b"
+            }
+        };
+
+        const selectedNoticeColor =
+            noticeColors[accountNotice.color] || noticeColors.green;
+
+        document.documentElement.style.setProperty(
+            "--notice-bg",
+            selectedNoticeColor.background
+        );
+
+        document.documentElement.style.setProperty(
+            "--notice-border",
+            selectedNoticeColor.border
+        );
+
+        document.documentElement.style.setProperty(
+            "--notice-text",
+            selectedNoticeColor.text
+        );
+
+        document.getElementById("noticeHeading").textContent =
+            accountNotice.heading;
+
+        document.getElementById("noticeMessage").textContent =
+            accountNotice.message;
+
+        document.getElementById("noticeButton").textContent =
+            accountNotice.buttonText;
+
+        document.getElementById("noticeButton").href =
+            accountNotice.buttonLink;
+    </script>
+
+</body>
+</html>

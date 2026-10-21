@@ -1,0 +1,1076 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#103570">
+  <title>Make a Deposit | Fednow Shares</title>
+
+  <style>
+    :root {
+      --navy: #103570;
+      --blue: #528fe0;
+      --blue-dark: #326fc4;
+      --bg: #f3f7fb;
+      --white: #ffffff;
+      --text: #34445c;
+      --muted: #778395;
+      --border: #e2e9f2;
+      --green: #219b78;
+      --green-dark: #17785c;
+      --purple: #565cf0;
+      --shadow: 0 8px 28px rgba(16, 53, 112, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 7%;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(16, 53, 112, 0.03);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--navy);
+      font-size: 21px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      color: white;
+      background: var(--navy);
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--blue-dark);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .back-link:hover {
+      color: var(--navy);
+    }
+
+    .container {
+      width: min(100% - 32px, 620px);
+      margin: 38px auto 0;
+    }
+
+    .breadcrumb {
+      margin-bottom: 22px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .breadcrumb a {
+      color: var(--blue-dark);
+      text-decoration: none;
+    }
+
+    .heading {
+      margin-bottom: 26px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 7px 11px;
+      border-radius: 6px;
+      background: #e6effd;
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .heading h1 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: clamp(27px, 5vw, 34px);
+      line-height: 1.2;
+      letter-spacing: -0.7px;
+    }
+
+    .heading p {
+      max-width: 490px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .panel {
+      margin-bottom: 20px;
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      margin-bottom: 22px;
+    }
+
+    .section-number {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #eaf2ff;
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .section-title {
+      margin: 2px 0 6px;
+      color: var(--navy);
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .section-description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .coin-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .coin {
+      position: relative;
+      min-width: 0;
+      padding: 17px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      text-align: left;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+    }
+
+    .coin:hover {
+      border-color: #a8c7f2;
+      background: #fbfdff;
+    }
+
+    .coin.active {
+      border-color: var(--blue);
+      background: #f3f7ff;
+      box-shadow: 0 0 0 2px rgba(82, 143, 224, 0.10);
+    }
+
+    .coin.active::after {
+      content: "✓";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: grid;
+      place-items: center;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .coin-symbol {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 11px;
+      padding-right: 15px;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .coin-icon {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 39px;
+      height: 39px;
+      border-radius: 50%;
+      color: white;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .btc-icon {
+      background: #f7931a;
+    }
+
+    .usdt-icon {
+      background: #26a17b;
+    }
+
+    .coin small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .payment-content {
+      text-align: center;
+    }
+
+    .selected-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 7px 12px;
+      border-radius: 20px;
+      background: #eaf2ff;
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .8px;
+    }
+
+    .payment-content h2 {
+      margin: 0 0 9px;
+      color: var(--navy);
+      font-size: 24px;
+      letter-spacing: -.3px;
+    }
+
+    .instructions {
+      max-width: 420px;
+      margin: 0 auto 23px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .qr-wrap {
+      display: grid;
+      place-items: center;
+      width: 190px;
+      height: 190px;
+      margin: 0 auto 22px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .qr-wrap img {
+      display: block;
+      width: 164px;
+      height: 164px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .address-label {
+      margin-bottom: 10px;
+      color: var(--text);
+      text-align: left;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .address-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: #f8faff;
+      text-align: left;
+    }
+
+    .address-text {
+      flex: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      color: var(--navy);
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.8;
+    }
+
+    .copy-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      min-height: 42px;
+      padding: 10px 13px;
+      border: none;
+      border-radius: 8px;
+      background: var(--navy);
+      color: #fff;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--blue-dark);
+    }
+
+    .network-note {
+      margin-top: 17px;
+      padding: 14px;
+      border: 1px solid #dce8fa;
+      border-radius: 10px;
+      background: #f2f7ff;
+      color: var(--muted);
+      text-align: left;
+      font-size: 12px;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+
+    .network-note strong {
+      color: var(--navy);
+    }
+
+    .warning {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid #f1dfb7;
+      border-radius: 10px;
+      background: #fff9eb;
+      color: #76551a;
+      text-align: left;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .warning-icon {
+      flex-shrink: 0;
+      font-size: 17px;
+    }
+
+    .warning strong {
+      color: #62430f;
+    }
+
+    .status {
+      min-height: 20px;
+      margin-top: 13px;
+      color: var(--green-dark);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .footer {
+      padding: 22px 0 35px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .footer a {
+      color: var(--blue-dark);
+      text-decoration: none;
+    }
+
+    /* CUSTOMER SUPPORT */
+
+    .chat-button {
+      position: fixed;
+      right: 26px;
+      bottom: 26px;
+      z-index: 1001;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      border: none;
+      border-radius: 50%;
+      background: #1760d5;
+      color: white;
+      box-shadow: 0 5px 20px rgba(16, 53, 112, .25);
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+    }
+
+    .chat-button:hover {
+      transform: translateY(-3px);
+      background: var(--navy);
+    }
+
+    .chat-button svg {
+      width: 29px;
+      height: 29px;
+      fill: currentColor;
+    }
+
+    .chat-dot {
+      position: absolute;
+      bottom: 1px;
+      left: 1px;
+      width: 17px;
+      height: 17px;
+      border: 3px solid white;
+      border-radius: 50%;
+      background: #39d29b;
+    }
+
+    .support-menu {
+      position: fixed;
+      right: 26px;
+      bottom: 98px;
+      z-index: 1000;
+      display: none;
+      width: min(270px, calc(100vw - 30px));
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      box-shadow: 0 10px 35px rgba(16, 53, 112, .18);
+    }
+
+    .support-menu.open {
+      display: block;
+      animation: menuIn .18s ease-out;
+    }
+
+    @keyframes menuIn {
+      from {
+        opacity: 0;
+        transform: translateY(7px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .support-title {
+      margin: 0 0 5px;
+      color: var(--navy);
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .support-description {
+      margin: 0 0 15px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .support-link {
+      display: block;
+      padding: 12px;
+      border-radius: 8px;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      transition: opacity .2s;
+    }
+
+    .support-link:hover {
+      opacity: .9;
+    }
+
+    .email-support {
+      margin-bottom: 9px;
+      background: var(--blue);
+    }
+
+    .whatsapp-support {
+      background: #25a765;
+    }
+
+    @media (min-width: 900px) {
+      .container {
+        margin-top: 45px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .navbar {
+        padding: 15px 18px;
+        gap: 10px;
+      }
+
+      .brand {
+        gap: 8px;
+        font-size: 17px;
+      }
+
+      .brand-icon {
+        width: 33px;
+        height: 33px;
+        border-radius: 9px;
+        font-size: 16px;
+      }
+
+      .back-link {
+        gap: 4px;
+        font-size: 12px;
+      }
+
+      .container {
+        width: calc(100% - 24px);
+        margin-top: 25px;
+      }
+
+      .breadcrumb {
+        margin-bottom: 18px;
+      }
+
+      .heading {
+        margin-bottom: 21px;
+      }
+
+      .heading h1 {
+        font-size: 28px;
+      }
+
+      .panel {
+        padding: 18px 15px;
+        border-radius: 13px;
+      }
+
+      .section-heading {
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .section-number {
+        width: 32px;
+        height: 32px;
+      }
+
+      .section-title {
+        font-size: 15px;
+      }
+
+      .coin-options {
+        gap: 9px;
+      }
+
+      .coin {
+        padding: 13px 10px;
+      }
+
+      .coin.active {
+        padding: 13px 10px;
+      }
+
+      .coin-symbol {
+        gap: 8px;
+        font-size: 13px;
+      }
+
+      .coin-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 19px;
+      }
+
+      .coin small {
+        font-size: 10px;
+      }
+
+      .payment-content h2 {
+        font-size: 22px;
+      }
+
+      .qr-wrap {
+        width: 176px;
+        height: 176px;
+      }
+
+      .qr-wrap img {
+        width: 152px;
+        height: 152px;
+      }
+
+      .address-box {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .copy-btn {
+        width: 100%;
+      }
+
+      .chat-button {
+        right: 14px;
+        bottom: 18px;
+        width: 54px;
+        height: 54px;
+      }
+
+      .support-menu {
+        right: 12px;
+        bottom: 82px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .brand {
+        font-size: 15px;
+      }
+
+      .back-link {
+        font-size: 11px;
+      }
+
+      .coin-symbol {
+        gap: 6px;
+        font-size: 12px;
+      }
+
+      .coin {
+        padding: 12px 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <a class="brand" href="index.html" aria-label="Fednow Shares home">
+      <span class="brand-icon">F</span>
+      <span>Fednow Shares</span>
+    </a>
+
+    <a class="back-link" href="index.html">
+      <span aria-hidden="true">←</span> Back to Home
+    </a>
+  </header>
+
+  <main class="container">
+
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> / Make a Deposit
+    </div>
+
+    <div class="heading">
+      <span class="eyebrow">Account Funding</span>
+      <h1>Make a Deposit</h1>
+      <p>
+        Select your preferred cryptocurrency and follow the payment
+        instructions below to view the designated wallet address.
+      </p>
+    </div>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div class="section-number">01</div>
+        <div>
+          <h2 class="section-title">Choose Payment Method</h2>
+          <p class="section-description">
+            Select the cryptocurrency you want to use.
+          </p>
+        </div>
+      </div>
+
+      <div class="coin-options">
+
+        <button class="coin active"
+                id="btcOption"
+                type="button"
+                aria-pressed="true"
+                onclick="selectCoin('BTC')">
+
+          <div class="coin-symbol">
+            <span class="coin-icon btc-icon">₿</span>
+            <span>Bitcoin</span>
+          </div>
+
+          <small>BTC Network</small>
+        </button>
+
+        <button class="coin"
+                id="usdtOption"
+                type="button"
+                aria-pressed="false"
+                onclick="selectCoin('USDT')">
+
+          <div class="coin-symbol">
+            <span class="coin-icon usdt-icon">₮</span>
+            <span>Tether USDT</span>
+          </div>
+
+          <small>BSC (BEP20) Network</small>
+        </button>
+
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div class="section-number">02</div>
+        <div>
+          <h2 class="section-title">Deposit Instructions</h2>
+          <p class="section-description">
+            Carefully verify the wallet address and network before sending.
+          </p>
+        </div>
+      </div>
+
+      <div class="payment-content">
+
+        <div class="selected-label" id="selectedLabel">
+          BITCOIN DEPOSIT
+        </div>
+
+        <h2 id="paymentTitle">Deposit BTC</h2>
+
+        <p class="instructions" id="instructions">
+          Send Bitcoin only to the BTC wallet address displayed below.
+        </p>
+
+        <div class="qr-wrap">
+          <img
+            id="qrCode"
+            alt="QR code for the selected payment address"
+            src="https://api.qrserver.com/v1/create-qr-code/?size=164x164&amp;data=1MgMecWZ9N4M2aSD9c5pKezyD2pKPqGb2A">
+        </div>
+
+        <div class="address-label">Deposit wallet address</div>
+
+        <div class="address-box">
+          <div class="address-text" id="walletAddress">
+            1MgMecWZ9N4M2aSD9c5pKezyD2pKPqGb2A
+          </div>
+
+          <button class="copy-btn"
+                  id="copyButton"
+                  type="button"
+                  onclick="copyAddress()">
+            <span aria-hidden="true">▢</span>
+            Copy Address
+          </button>
+        </div>
+
+        <div class="network-note" id="networkNote">
+          <strong>Network:</strong> Bitcoin (BTC).<br>
+          Verify the network before sending your cryptocurrency.
+        </div>
+
+        <div class="warning">
+          <span class="warning-icon" aria-hidden="true">⚠</span>
+          <div>
+            <strong>Important:</strong>
+            Always verify the wallet address and supported network before
+            sending funds. Cryptocurrency transactions are generally
+            irreversible. Only send funds to an address you have verified.
+          </div>
+        </div>
+
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+
+      </div>
+    </section>
+
+    <footer class="footer">
+      © <span id="year"></span> Fednow Shares. All rights reserved.
+      <br>
+      Please verify all deposit details before making a transaction.
+    </footer>
+
+  </main>
+
+  <!-- CUSTOMER SUPPORT BUTTON -->
+
+  <button class="chat-button"
+          id="chatButton"
+          type="button"
+          onclick="openSupport()"
+          aria-label="Open customer support options"
+          aria-expanded="false"
+          aria-controls="supportMenu">
+
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3C6.9 3 3 6.5 3 11c0 2.1.9 4 2.5 5.4L5 21l4.8-2.1c.7.2 1.5.3 2.2.3 5.1 0 9-3.5 9-8.2S17.1 3 12 3Zm0 2c3.9 0 7 2.5 7 6s-3.1 6.2-7 6.2c-.7 0-1.5-.1-2.2-.3l-.7-.2-2.1.9.2-2.2-.7-.6C5.5 13.7 5 12.4 5 11c0-3.5 3.1-6 7-6Z"/>
+    </svg>
+
+    <span class="chat-dot"></span>
+  </button>
+
+  <!-- CUSTOMER SUPPORT MENU -->
+
+  <div class="support-menu"
+       id="supportMenu"
+       aria-label="Customer support options">
+
+    <p class="support-title">Customer Support</p>
+
+    <p class="support-description">
+      Need help? Contact our support team.
+    </p>
+
+    <a class="support-link email-support"
+       href="mailto:Fednowsharesteam@gmail.com?subject=Fednow%20Shares%20Customer%20Support">
+      Email Support
+    </a>
+
+    <a class="support-link whatsapp-support"
+       href="https://wa.me/447549589541"
+       target="_blank"
+       rel="noopener noreferrer">
+      WhatsApp Support
+    </a>
+
+  </div>
+
+  <script>
+    /*
+      ==========================================
+      EDIT YOUR PAYMENT ADDRESSES HERE
+      ==========================================
+
+      Replace the addresses below with your
+      verified wallet addresses before publishing.
+
+      BTC:
+      Use a verified Bitcoin wallet address.
+
+      USDT:
+      The current setting specifies BSC / BEP20.
+      Make sure your USDT wallet supports this exact
+      network before accepting deposits.
+    */
+
+    const PAYMENT_CONFIG = {
+      BTC: {
+        address: "1MgMecWZ9N4M2aSD9c5pKezyD2pKPqGb2A",
+        network: "Bitcoin (BTC)",
+        title: "Deposit BTC",
+        label: "BITCOIN DEPOSIT",
+        instructions:
+          "Send Bitcoin only to the BTC wallet address displayed below."
+      },
+
+      USDT: {
+        address: "0xa0cb1cdd8b7beaf6c2c3a1bd0d6eaed5a6c36a84",
+        network: "USDT — BSC (BEP20)",
+        title: "Deposit USDT",
+        label: "USDT DEPOSIT",
+        instructions:
+          "Send USDT only after confirming that your sending wallet supports the BSC (BEP20) network."
+      }
+    };
+
+    let selectedCoin = "BTC";
+
+    function selectCoin(coin) {
+      if (!PAYMENT_CONFIG[coin]) return;
+
+      selectedCoin = coin;
+
+      const payment = PAYMENT_CONFIG[coin];
+
+      document.getElementById("btcOption")
+        .classList.toggle("active", coin === "BTC");
+
+      document.getElementById("usdtOption")
+        .classList.toggle("active", coin === "USDT");
+
+      document.getElementById("btcOption")
+        .setAttribute("aria-pressed", String(coin === "BTC"));
+
+      document.getElementById("usdtOption")
+        .setAttribute("aria-pressed", String(coin === "USDT"));
+
+      document.getElementById("selectedLabel").textContent =
+        payment.label;
+
+      document.getElementById("paymentTitle").textContent =
+        payment.title;
+
+      document.getElementById("instructions").textContent =
+        payment.instructions;
+
+      document.getElementById("walletAddress").textContent =
+        payment.address;
+
+      const networkNote = document.getElementById("networkNote");
+
+      networkNote.replaceChildren();
+
+      const networkStrong = document.createElement("strong");
+      networkStrong.textContent = "Network: ";
+
+      networkNote.appendChild(networkStrong);
+      networkNote.appendChild(
+        document.createTextNode(payment.network + ".")
+      );
+      networkNote.appendChild(document.createElement("br"));
+      networkNote.appendChild(
+        document.createTextNode(
+          "Verify the network before sending your cryptocurrency."
+        )
+      );
+
+      document.getElementById("qrCode").src =
+        "https://api.qrserver.com/v1/create-qr-code/?size=164x164&data=" +
+        encodeURIComponent(payment.address);
+
+      document.getElementById("qrCode").alt =
+        "QR code for the " + payment.title + " wallet address";
+
+      document.getElementById("status").textContent = "";
+      document.getElementById("copyButton").innerHTML =
+        '<span aria-hidden="true">▢</span> Copy Address';
+    }
+
+    async function copyAddress() {
+      const address = PAYMENT_CONFIG[selectedCoin].address;
+      const status = document.getElementById("status");
+
+      if (
+        !address ||
+        address.startsWith("YOUR_") ||
+        address.includes("SET YOUR NETWORK")
+      ) {
+        status.textContent =
+          "The wallet address has not been configured.";
+        return;
+      }
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(address);
+        } else {
+          const temporaryInput = document.createElement("textarea");
+          temporaryInput.value = address;
+          temporaryInput.setAttribute("readonly", "");
+          temporaryInput.style.position = "fixed";
+          temporaryInput.style.opacity = "0";
+
+          document.body.appendChild(temporaryInput);
+          temporaryInput.select();
+
+          const copied = document.execCommand("copy");
+          temporaryInput.remove();
+
+          if (!copied) {
+            throw new Error("Copy command failed");
+          }
+        }
+
+        status.textContent = "Wallet address copied successfully.";
+
+        document.getElementById("copyButton").innerHTML =
+          '<span aria-hidden="true">✓</span> Copied!';
+      } catch (error) {
+        status.textContent =
+          "Copy failed. Please select the wallet address and copy it manually.";
+      }
+    }
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    selectCoin("BTC");
+
+    /* CUSTOMER SUPPORT MENU */
+
+    function openSupport() {
+      const supportMenu = document.getElementById("supportMenu");
+      const chatButton = document.getElementById("chatButton");
+
+      const isOpen = supportMenu.classList.toggle("open");
+
+      chatButton.setAttribute("aria-expanded", String(isOpen));
+    }
+
+    document.addEventListener("click", function(event) {
+      const supportMenu = document.getElementById("supportMenu");
+      const chatButton = document.getElementById("chatButton");
+
+      if (
+        !supportMenu.contains(event.target) &&
+        !chatButton.contains(event.target)
+      ) {
+        supportMenu.classList.remove("open");
+        chatButton.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        document.getElementById("supportMenu").classList.remove("open");
+
+        document.getElementById("chatButton")
+          .setAttribute("aria-expanded", "false");
+      }
+    });
+  </script>
+
+</body>
+</html>

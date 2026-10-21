@@ -1,0 +1,984 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Money | FedNow Shares</title>
+
+<style>
+:root {
+    --navy: #103570;
+    --blue: #528fe0;
+    --light: #f3f7fb;
+    --text: #34445c;
+    --muted: #778395;
+    --border: #e2e9f2;
+    --white: #fff;
+    --yellow: #fff7df;
+    --yellow-border: #f1dfaa;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button, a, select {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* TOP NAVIGATION */
+
+.topbar {
+    min-height: 78px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(16, 53, 112, .035);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: .3px;
+}
+
+.brand-icon {
+    width: 39px;
+    height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 10px;
+}
+
+.brand-icon svg {
+    width: 23px;
+    height: 23px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-link {
+    width: 41px;
+    height: 41px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.nav-link:hover {
+    background: var(--light);
+}
+
+.nav-link.home-link {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+}
+
+.nav-link.home-link:hover {
+    background: #17488e;
+}
+
+.nav-link svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.language {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.language select {
+    width: 30px;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--navy);
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* MAIN PAGE */
+
+.page {
+    width: calc(100% - 36px);
+    max-width: 790px;
+    margin: 32px auto 55px;
+}
+
+.breadcrumb {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 17px;
+}
+
+.breadcrumb a {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 12px rgba(16, 53, 112, .035);
+}
+
+/* PAGE HEADING */
+
+.heading-box {
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    padding: 27px 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.heading-box::after {
+    content: "";
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border: 25px solid rgba(255,255,255,.06);
+    border-radius: 50%;
+    right: -48px;
+    top: -72px;
+    pointer-events: none;
+}
+
+.heading-box h1 {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 8px;
+    font-size: 27px;
+    letter-spacing: -.4px;
+}
+
+.heading-box p {
+    position: relative;
+    z-index: 1;
+    max-width: 510px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #e0eaff;
+}
+
+/* SECTION HEADINGS */
+
+.section-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 16px;
+    color: var(--navy);
+}
+
+.section-description {
+    color: var(--muted);
+    font-size: 13px;
+    margin: -8px 0 16px;
+    line-height: 1.6;
+}
+
+/* DEPOSIT AMOUNT */
+
+.amount-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.amount-input-wrap {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #cfd9e8;
+    border-radius: 9px;
+    overflow: hidden;
+    background: #fff;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.amount-input-wrap:focus-within {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(82, 143, 224, .12);
+}
+
+.currency {
+    min-height: 54px;
+    padding: 0 17px;
+    background: #edf3fc;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 700;
+    border-right: 1px solid #d8e2f0;
+}
+
+.amount-input {
+    width: 100%;
+    min-width: 0;
+    padding: 14px 15px;
+    border: 0;
+    outline: none;
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--navy);
+    background: #fff;
+}
+
+.amount-input::placeholder {
+    color: #a2acba;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.helper-text {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 9px 0 0;
+}
+
+/* INSTRUCTIONS */
+
+.instructions-box {
+    padding-bottom: 18px;
+}
+
+.instruction-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: instruction;
+}
+
+.instruction-list li {
+    counter-increment: instruction;
+    position: relative;
+    padding: 0 0 0 43px;
+    margin-bottom: 17px;
+    color: #58677c;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.instruction-list li:last-child {
+    margin-bottom: 0;
+}
+
+.instruction-list li::before {
+    content: counter(instruction);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 29px;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eaf2ff;
+    color: var(--navy);
+    border-radius: 9px;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+/* IMPORTANT NOTICE */
+
+.notice-box {
+    background: var(--yellow);
+    border: 1px solid var(--yellow-border);
+    border-left: 4px solid #e5b52d;
+    box-shadow: none;
+}
+
+.notice-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #765400;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 9px;
+}
+
+.notice-symbol {
+    width: 25px;
+    height: 25px;
+    border: 2px solid #c18c00;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.notice-box p {
+    margin: 0;
+    color: #725e26;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* CONTINUE BUTTON */
+
+.continue-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 51px;
+    background: var(--navy);
+    color: #fff;
+    border: 1px solid var(--navy);
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: .2s ease;
+}
+
+.continue-button:hover {
+    background: #17488e;
+    box-shadow: 0 5px 13px rgba(16, 53, 112, .13);
+    transform: translateY(-1px);
+}
+
+.continue-button svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.continue-button:disabled {
+    opacity: .7;
+    cursor: wait;
+    transform: none;
+}
+
+/* FORM FEEDBACK */
+
+.error-message {
+    display: none;
+    margin-top: 11px;
+    padding: 11px 13px;
+    color: #a61b1b;
+    background: #fff0f0;
+    border: 1px solid #f3cccc;
+    border-radius: 7px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.error-message.show {
+    display: block;
+}
+
+/* FOOTER */
+
+.page-footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 26px;
+}
+
+/* CUSTOMER SUPPORT */
+
+.chat-button {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+    border: none;
+    background: #1760d5;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,.18);
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform .2s;
+}
+
+.chat-button:hover {
+    transform: translateY(-2px);
+}
+
+.chat-button svg {
+    width: 29px;
+    height: 29px;
+    fill: currentColor;
+}
+
+.chat-dot {
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+    height: 16px;
+    width: 16px;
+    background: #39d29b;
+    border: 3px solid white;
+    border-radius: 50%;
+}
+
+/* SUPPORT MENU */
+
+.support-menu {
+    display: none;
+    position: fixed;
+    right: 24px;
+    bottom: 94px;
+    z-index: 1000;
+    background: #fff;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 5px 22px rgba(16,53,112,.15);
+    width: 245px;
+}
+
+.support-menu.open {
+    display: block;
+}
+
+.support-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 5px;
+}
+
+.support-description {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 0 0 14px;
+}
+
+.support-link {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    padding: 12px 10px;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.email-support {
+    background: var(--blue);
+    margin-bottom: 9px;
+}
+
+.whatsapp-support {
+    background: #20b966;
+}
+
+.support-link:hover {
+    opacity: .9;
+}
+
+/* MOBILE */
+
+@media (max-width: 550px) {
+    .topbar {
+        min-height: 70px;
+        padding: 0 15px;
+    }
+
+    .brand {
+        font-size: 13px;
+        gap: 7px;
+    }
+
+    .brand-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+    }
+
+    .nav-right {
+        gap: 7px;
+    }
+
+    .nav-link {
+        width: 34px;
+        height: 35px;
+        border-radius: 8px;
+    }
+
+    .language {
+        gap: 2px;
+        font-size: 11px;
+    }
+
+    .language select {
+        width: 25px;
+        font-size: 11px;
+    }
+
+    .page {
+        width: calc(100% - 26px);
+        margin: 22px auto 40px;
+    }
+
+    .breadcrumb {
+        margin-bottom: 12px;
+    }
+
+    .section {
+        padding: 17px;
+        margin-bottom: 13px;
+        border-radius: 10px;
+    }
+
+    .heading-box {
+        padding: 22px 18px;
+    }
+
+    .heading-box h1 {
+        font-size: 23px;
+    }
+
+    .heading-box p {
+        font-size: 13px;
+    }
+
+    .section-title {
+        font-size: 16px;
+    }
+
+    .amount-input {
+        font-size: 19px;
+        padding: 13px 11px;
+    }
+
+    .currency {
+        min-height: 51px;
+        padding: 0 14px;
+    }
+
+    .instruction-list li {
+        font-size: 13px;
+        padding-left: 39px;
+    }
+
+    .notice-box p {
+        font-size: 12px;
+    }
+
+    .chat-button {
+        width: 54px;
+        height: 54px;
+        right: 13px;
+        bottom: 20px;
+    }
+
+    .support-menu {
+        right: 13px;
+        bottom: 84px;
+    }
+}
+
+@media (max-width: 360px) {
+    .topbar {
+        padding: 0 9px;
+    }
+
+    .brand {
+        font-size: 11px;
+    }
+
+    .nav-right {
+        gap: 5px;
+    }
+
+    .nav-link {
+        width: 31px;
+        height: 33px;
+    }
+
+    .language span {
+        display: none;
+    }
+
+    .page {
+        width: calc(100% - 20px);
+    }
+
+    .section {
+        padding: 14px;
+    }
+
+    .heading-box {
+        padding: 20px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <a class="brand" href="index.html" aria-label="FedNow Shares home">
+        <span class="brand-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 19V9l4-4 4 4v10"/>
+                <path d="M12 19V5l4-2 4 2v14"/>
+                <path d="M2 19h20"/>
+                <path d="M7 12h2M15 8h2M15 12h2"/>
+            </svg>
+        </span>
+        <span>FEDNOW SHARES</span>
+    </a>
+
+    <nav class="nav-right" aria-label="Main navigation">
+
+        <a class="nav-link"
+           href="dashboard.html"
+           aria-label="Back to dashboard"
+           title="Dashboard">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 12H5M11 6l-6 6 6 6"/>
+            </svg>
+        </a>
+
+        <a class="nav-link home-link"
+           href="index.html"
+           aria-label="Home"
+           title="Home">
+            <svg viewBox="0 0 24 24">
+                <path d="m3 10 9-7 9 7"/>
+                <path d="M5.5 9v12h13V9"/>
+                <path d="M9 21v-7h6v7"/>
+            </svg>
+        </a>
+
+        <label class="language">
+            <span>English</span>
+            <select id="languageSelect" aria-label="Language">
+                <option value="en" selected>⌄</option>
+                <option value="fr">FR</option>
+                <option value="es">ES</option>
+            </select>
+        </label>
+
+        <a class="nav-link"
+           href="dashboard.html"
+           aria-label="Account dashboard"
+           title="Account">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M5 21v-2a7 7 0 0 1 14 0v2"/>
+            </svg>
+        </a>
+
+    </nav>
+</header>
+
+<main class="page">
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> / Add Money
+    </div>
+
+    <section class="section heading-box">
+        <h1>Add Money</h1>
+        <p>
+            Enter the amount you wish to deposit and review the
+            instructions and requirements before continuing.
+        </p>
+    </section>
+
+    <section class="section">
+
+        <h2 class="section-title">Deposit Amount</h2>
+
+        <p class="section-description">
+            Choose the amount you intend to deposit.
+        </p>
+
+        <label class="amount-label" for="depositAmount">
+            Enter your deposit amount
+        </label>
+
+        <div class="amount-input-wrap">
+            <span class="currency">$</span>
+
+            <input
+                type="number"
+                id="depositAmount"
+                class="amount-input"
+                name="depositAmount"
+                placeholder="Enter amount"
+                min="50"
+                step="0.01"
+                inputmode="decimal"
+                autocomplete="off"
+                aria-describedby="amountHelp"
+                required
+            >
+        </div>
+
+        <p class="helper-text" id="amountHelp">
+            Minimum deposit: $50 USD. Enter the amount in US dollars.
+        </p>
+
+    </section>
+
+    <section class="section instructions-box">
+
+        <h2 class="section-title">What Is Required Next?</h2>
+
+        <p class="section-description">
+            Please review these steps before proceeding.
+        </p>
+
+        <ol class="instruction-list">
+            <li>
+                Enter the amount you want to deposit in the field above.
+            </li>
+            <li>
+                Review the payment instructions displayed on the next page.
+            </li>
+            <li>
+                Check the payment method and destination details carefully
+                before sending funds.
+            </li>
+            <li>
+                Follow the payment confirmation process after completing
+                your transfer.
+            </li>
+        </ol>
+
+    </section>
+
+    <section class="section notice-box">
+
+        <h2 class="notice-title">
+            <span class="notice-symbol">!</span>
+            Important Notice
+        </h2>
+
+        <p>
+            Always verify the payment amount and destination details before
+            sending money. Do not proceed if the payment information is
+            inconsistent or you cannot verify the destination. Keep your
+            transaction receipt for your records.
+        </p>
+
+    </section>
+
+    <button
+        class="continue-button"
+        id="continueButton"
+        type="button"
+        onclick="continueDeposit()">
+
+        Continue
+        <svg viewBox="0 0 24 24">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+        </svg>
+    </button>
+
+    <p id="errorMessage" class="error-message" role="alert"></p>
+
+    <footer class="page-footer">
+        © 2026 FedNow Shares. All rights reserved.
+    </footer>
+
+</main>
+
+<button class="chat-button"
+        onclick="openSupport()"
+        aria-label="Open customer support options"
+        aria-expanded="false"
+        aria-controls="supportMenu">
+
+    <svg viewBox="0 0 24 24">
+        <path d="M12 3C6.9 3 3 6.5 3 11c0 2.1.9 4 2.5 5.4L5 21l4.8-2.1c.7.2 1.5.3 2.2.3 5.1 0 9-3.5 9-8.2S17.1 3 12 3Zm0 2c3.9 0 7 2.5 7 6s-3.1 6.2-7 6.2c-.7 0-1.5-.1-2.2-.3l-.7-.2-2.1.9.2-2.2-.7-.6C5.5 13.7 5 12.4 5 11c0-3.5 3.1-6 7-6Z"/>
+    </svg>
+
+    <span class="chat-dot"></span>
+</button>
+
+<div class="support-menu"
+     id="supportMenu"
+     aria-label="Customer support options">
+
+    <p class="support-title">Customer Support</p>
+    <p class="support-description">How can we help you today?</p>
+
+    <a class="support-link email-support"
+       href="mailto:Fednowsharesteam@gmail.com?subject=Fednow%20Shares%20Customer%20Support">
+        Email Support
+    </a>
+
+    <a class="support-link whatsapp-support"
+       href="https://wa.me/447549589541"
+       target="_blank"
+       rel="noopener noreferrer">
+        WhatsApp Support
+    </a>
+
+</div>
+
+<script>
+function continueDeposit() {
+    const amountField = document.getElementById("depositAmount");
+    const errorMessage = document.getElementById("errorMessage");
+    const amount = Number(amountField.value);
+
+    errorMessage.classList.remove("show");
+    errorMessage.textContent = "";
+
+    if (
+        amountField.value.trim() === "" ||
+        !Number.isFinite(amount) ||
+        amount < 50
+    ) {
+        errorMessage.textContent =
+            "Please enter a valid deposit amount of at least $50 USD.";
+        errorMessage.classList.add("show");
+        amountField.focus();
+        return;
+    }
+
+    if (!Number.isFinite(amount) || amount > 1000000000) {
+        errorMessage.textContent =
+            "Please enter a valid deposit amount.";
+        errorMessage.classList.add("show");
+        amountField.focus();
+        return;
+    }
+
+    /*
+      Pass the selected amount to the next page.
+      Ensure deposit.html exists in the same GitHub Pages directory.
+    */
+    window.location.href =
+        "deposit.html?amount=" + encodeURIComponent(amount.toFixed(2));
+}
+
+/* CUSTOMER SUPPORT MENU */
+
+function openSupport() {
+    const supportMenu = document.getElementById("supportMenu");
+    const chatButton = document.querySelector(".chat-button");
+    const isOpen = supportMenu.classList.toggle("open");
+
+    chatButton.setAttribute("aria-expanded", String(isOpen));
+}
+
+function closeSupport() {
+    document.getElementById("supportMenu").classList.remove("open");
+    document.querySelector(".chat-button")
+        .setAttribute("aria-expanded", "false");
+}
+
+document.addEventListener("click", function(event) {
+    const supportMenu = document.getElementById("supportMenu");
+    const chatButton = document.querySelector(".chat-button");
+
+    if (
+        !supportMenu.contains(event.target) &&
+        !chatButton.contains(event.target)
+    ) {
+        closeSupport();
+    }
+});
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeSupport();
+    }
+});
+
+/*
+  The language selector is a visual selector only.
+  Actual translation requires translated page content.
+*/
+document.getElementById("languageSelect").addEventListener("change", function() {
+    if (this.value !== "en") {
+        this.value = "en";
+        alert("This language is not available yet.");
+    }
+});
+</script>
+
+</body>
+</html>

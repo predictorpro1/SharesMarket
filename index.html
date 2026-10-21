@@ -1,0 +1,1192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#103570">
+<title>Account Balance | Fednow Shares</title>
+
+<style>
+:root {
+    --navy: #103570;
+    --blue: #528fe0;
+    --blue-dark: #326fc4;
+    --purple: #565cf0;
+    --teal: #219b78;
+    --bg: #f3f7fb;
+    --white: #ffffff;
+    --text: #34445c;
+    --muted: #778395;
+    --border: #e2e9f2;
+    --pale: #d5e2f6;
+    --shadow: 0 5px 22px rgba(16, 53, 112, 0.06);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+}
+
+button, a {
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+}
+
+/* HEADER */
+
+.topbar {
+    min-height: 76px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 15px 7%;
+    background: var(--white);
+    box-shadow: 0 2px 10px rgba(16, 53, 112, 0.025);
+}
+
+.header-left,
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.header-left {
+    gap: 15px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.brand-icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--navy);
+    color: #fff;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.back {
+    display: grid;
+    place-items: center;
+    width: 35px;
+    height: 35px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--navy);
+}
+
+.back:hover {
+    background: #f0f5fd;
+}
+
+.nav {
+    gap: 13px;
+}
+
+.nav button,
+.nav a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.nav .home {
+    background: var(--navy);
+    color: #fff;
+}
+
+.nav .home:hover {
+    background: var(--blue-dark);
+}
+
+.nav .down:hover,
+.nav .user:hover {
+    background: #f0f5fd;
+    color: var(--navy);
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* PAGE */
+
+.page {
+    width: calc(100% - 36px);
+    max-width: 800px;
+    margin: 34px auto 45px;
+}
+
+.breadcrumb {
+    margin-bottom: 22px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.breadcrumb a {
+    color: var(--blue-dark);
+    text-decoration: none;
+}
+
+.page-heading {
+    margin-bottom: 23px;
+}
+
+.eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 7px 11px;
+    border-radius: 6px;
+    background: #e6effd;
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.page-heading h1 {
+    margin: 0 0 9px;
+    color: var(--navy);
+    font-size: clamp(26px, 4vw, 33px);
+    letter-spacing: -0.7px;
+}
+
+.page-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* BALANCE CARD */
+
+.balance {
+    position: relative;
+    overflow: hidden;
+    padding: 25px;
+    border-radius: 15px;
+    background: linear-gradient(130deg, #103570 0%, #174b91 100%);
+    color: #fff;
+    box-shadow: 0 10px 28px rgba(16, 53, 112, 0.16);
+}
+
+.balance::before {
+    content: "";
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    right: -100px;
+    top: -130px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.balance::after {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    right: -75px;
+    top: -95px;
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.heading {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.heading h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+
+.tag {
+    padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 7px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.wallet {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    margin-bottom: 13px;
+    padding: 15px 16px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 11px;
+    background: rgba(255,255,255,0.075);
+}
+
+.wallet:last-child {
+    margin-bottom: 0;
+}
+
+.wallet-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    padding: 11px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.12);
+    color: #e0eaff;
+}
+
+.name {
+    flex: 1;
+    min-width: 0;
+    color: #d6e3f9;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.amount {
+    color: #fff;
+    font-size: clamp(19px, 4vw, 26px);
+    font-weight: 800;
+    white-space: nowrap;
+    letter-spacing: -0.5px;
+}
+
+/* PRIMARY ACTIONS */
+
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 17px 0 22px;
+}
+
+.action {
+    min-height: 53px;
+    border: 0;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s, background .2s;
+}
+
+.action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16,53,112,0.12);
+}
+
+.action svg {
+    width: 20px;
+    height: 20px;
+}
+
+.deposit {
+    background: var(--purple);
+}
+
+.deposit:hover {
+    background: #464ce0;
+}
+
+.invest {
+    background: var(--teal);
+}
+
+.invest:hover {
+    background: #187e63;
+}
+
+/* MENU */
+
+.menu-panel {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: var(--shadow);
+}
+
+.menu-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 20px 22px;
+    border-bottom: 1px solid var(--border);
+}
+
+.menu-heading h2 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.menu-heading span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.menu {
+    padding: 7px 0;
+}
+
+.item {
+    width: 100%;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 11px 22px;
+    border: 0;
+    border-bottom: 1px solid #f0f3f8;
+    background: #fff;
+    text-align: left;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background .18s, color .18s;
+}
+
+.item:last-child {
+    border-bottom: 0;
+}
+
+.item:hover {
+    background: #f6f9ff;
+    color: var(--navy);
+}
+
+.item-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    padding: 10px;
+    border-radius: 9px;
+    background: #edf4ff;
+    color: var(--navy);
+}
+
+.item-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.item-label {
+    flex: 1;
+    min-width: 0;
+}
+
+.arrow {
+    color: var(--blue);
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.item:hover .arrow {
+    transform: translateX(2px);
+}
+
+.item .arrow {
+    transition: transform .18s;
+}
+
+/* SUPPORT BUTTON */
+
+.chat {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 58px;
+    height: 58px;
+    border: 0;
+    border-radius: 50%;
+    background: #1760d5;
+    display: grid;
+    place-items: center;
+    z-index: 1001;
+    box-shadow: 0 5px 18px rgba(16,53,112,.25);
+    transition: transform .2s, background .2s;
+}
+
+.chat:hover {
+    transform: translateY(-3px);
+    background: var(--navy);
+}
+
+.bubble {
+    width: 28px;
+    height: 23px;
+    background: #fff;
+    border-radius: 50%;
+    position: relative;
+}
+
+.bubble::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    bottom: -3px;
+    width: 9px;
+    height: 9px;
+    background: #fff;
+    transform: rotate(30deg);
+}
+
+.online {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 17px;
+    height: 17px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: #45d889;
+}
+
+/* SUPPORT MENU */
+
+.support-menu {
+    display: none;
+    position: fixed;
+    right: 24px;
+    bottom: 95px;
+    width: 250px;
+    background: #fff;
+    border-radius: 13px;
+    box-shadow: 0 8px 30px rgba(16,53,112,.18);
+    overflow: hidden;
+    z-index: 1000;
+    border: 1px solid var(--border);
+}
+
+.support-menu.show {
+    display: block;
+    animation: supportIn .18s ease-out;
+}
+
+@keyframes supportIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.support-title {
+    padding: 16px;
+    background: var(--navy);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.support-description {
+    margin: 0;
+    padding: 13px 15px 4px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.support-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 14px 15px;
+    border: 0;
+    border-bottom: 1px solid #edf0f5;
+    background: #fff;
+    color: var(--text);
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.support-option:last-child {
+    border-bottom: 0;
+}
+
+.support-option:hover {
+    background: #f5f8fd;
+    color: var(--navy);
+}
+
+.support-icon {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    border-radius: 8px;
+    background: #edf4ff;
+    color: var(--navy);
+    flex-shrink: 0;
+}
+
+/* TOAST */
+
+.toast {
+    display: none;
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: calc(100% - 30px);
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 17px;
+    border-radius: 9px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.12);
+    z-index: 1100;
+    font-size: 13px;
+    text-align: center;
+}
+
+.toast.show {
+    display: block;
+    animation: supportIn .18s ease-out;
+}
+
+.footer {
+    padding: 24px 0 0;
+    color: var(--muted);
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+@media (min-width: 900px) {
+    .page {
+        margin-top: 38px;
+    }
+}
+
+@media (max-width: 520px) {
+    .topbar {
+        min-height: 68px;
+        padding: 12px 15px;
+        gap: 10px;
+    }
+
+    .header-left {
+        gap: 9px;
+    }
+
+    .brand {
+        gap: 7px;
+        font-size: 16px;
+    }
+
+    .brand-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    .back {
+        width: 31px;
+        height: 31px;
+        padding: 7px;
+    }
+
+    .nav {
+        gap: 5px;
+    }
+
+    .nav button,
+    .nav a {
+        width: 34px;
+        height: 34px;
+        padding: 8px;
+    }
+
+    .page {
+        width: calc(100% - 24px);
+        margin-top: 25px;
+    }
+
+    .breadcrumb {
+        margin-bottom: 18px;
+    }
+
+    .page-heading {
+        margin-bottom: 18px;
+    }
+
+    .page-heading h1 {
+        font-size: 27px;
+    }
+
+    .balance {
+        padding: 19px 14px;
+        border-radius: 13px;
+    }
+
+    .heading {
+        margin-bottom: 17px;
+    }
+
+    .heading h2 {
+        font-size: 18px;
+    }
+
+    .tag {
+        padding: 7px 9px;
+        font-size: 9px;
+    }
+
+    .wallet {
+        gap: 9px;
+        padding: 13px 10px;
+    }
+
+    .wallet-icon {
+        width: 34px;
+        height: 34px;
+        padding: 9px;
+    }
+
+    .name {
+        font-size: 13px;
+    }
+
+    .amount {
+        font-size: 20px;
+    }
+
+    .actions {
+        gap: 10px;
+        margin: 13px 0 17px;
+    }
+
+    .action {
+        min-height: 48px;
+        gap: 7px;
+        font-size: 13px;
+    }
+
+    .action svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .menu-heading {
+        padding: 17px 15px;
+    }
+
+    .item {
+        min-height: 55px;
+        gap: 10px;
+        padding: 9px 13px;
+        font-size: 12px;
+    }
+
+    .item-icon {
+        width: 33px;
+        height: 33px;
+        padding: 9px;
+    }
+
+    .chat {
+        right: 14px;
+        bottom: 18px;
+        width: 53px;
+        height: 53px;
+    }
+
+    .support-menu {
+        right: 12px;
+        bottom: 82px;
+    }
+}
+
+@media (max-width: 360px) {
+    .brand {
+        font-size: 14px;
+    }
+
+    .nav {
+        gap: 2px;
+    }
+
+    .nav button,
+    .nav a {
+        width: 30px;
+        height: 32px;
+        padding: 7px;
+    }
+
+    .wallet {
+        gap: 7px;
+        padding: 12px 8px;
+    }
+
+    .wallet-icon {
+        width: 30px;
+        height: 30px;
+        padding: 8px;
+    }
+
+    .name {
+        font-size: 12px;
+    }
+
+    .amount {
+        font-size: 18px;
+    }
+
+    .item {
+        padding: 9px 10px;
+        font-size: 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="header-left">
+        <button class="back" type="button"
+                aria-label="Go back"
+                onclick="goBack()">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+        </button>
+
+        <a class="brand" href="home.html" aria-label="Fednow Shares home">
+            <span class="brand-icon">F</span>
+            <span>Fednow Shares</span>
+        </a>
+    </div>
+
+    <nav class="nav" aria-label="Main navigation">
+
+        <button class="home" type="button"
+                aria-label="Home"
+                onclick="window.location.href='home.html'">
+            <svg viewBox="0 0 24 24">
+                <path d="m3 10 9-7 9 7M5.5 9v12h13V9M9 21v-7h6v7"/>
+            </svg>
+        </button>
+
+        <button class="down" type="button"
+                aria-label="Menu information"
+                onclick="msg('Menu')">
+            <svg viewBox="0 0 24 24">
+                <path d="m5 9 7 7 7-7"/>
+            </svg>
+        </button>
+
+        <a class="user" aria-label="Profile" href="profile.html">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="7.5" r="4"/>
+                <path d="M4 21c.7-4.2 3.5-6.5 8-6.5s7.3 2.3 8 6.5"/>
+            </svg>
+        </a>
+
+    </nav>
+</header>
+
+<main class="page">
+
+    <div class="breadcrumb">
+        <a href="home.html">Home</a> / Account Balance
+    </div>
+
+    <div class="page-heading">
+        <span class="eyebrow">Account Overview</span>
+        <h1>Account Balance</h1>
+    
+    </div>
+
+    <section class="balance">
+
+        <div class="heading">
+            <h2>Wallet Summary</h2>
+            <span class="tag">MY WALLET</span>
+        </div>
+
+        <div class="wallet">
+            <span class="wallet-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 7V5a2 2 0 0 1 2-2h13v4"/>
+                    <path d="M4 7h16a2 2 0 0 1 2 2v10H4a2 2 0 0 1-2-2V7h2Z"/>
+                    <path d="M16 12h6"/>
+                    <circle cx="17.5" cy="12" r=".5"/>
+                </svg>
+            </span>
+
+            <span class="name">Main Wallet</span>
+            <strong class="amount">$291.47</strong>
+        </div>
+
+        <div class="wallet">
+            <span class="wallet-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="m2 8 10-6 10 6H2ZM4 21h16M6 10v8M10 10v8M14 10v8M18 10v8"/>
+                </svg>
+            </span>
+
+            <span class="name">Profit Wallet</span>
+            <strong class="amount">$59.84</strong>
+        </div>
+
+    </section>
+
+    <section class="actions" aria-label="Wallet actions">
+
+        <a href="deposit.html" class="action deposit">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 2h9l6 6v14H5zM14 2v6h6M12 11v7M9 14.5h6"/>
+            </svg>
+            Deposit
+        </a>
+
+        <a href="invest.html" class="action invest">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 4v16H4V4h12M13 8l4 4-4 4M17 12H9"/>
+            </svg>
+            Invest Now
+        </a>
+
+    </section>
+
+    <section class="menu-panel">
+
+        <div class="menu-heading">
+            <h2>Account Services</h2>
+            <span>Manage your account</span>
+        </div>
+
+        <nav class="menu" aria-label="Account services">
+
+            <a href="dashboard.html" class="item">
+                <span class="item-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/>
+                    </svg>
+                </span>
+                <span class="item-label">DASHBOARD</span>
+                <span class="arrow">›</span>
+            </a>
+
+            <a href="schema.html" class="item">
+                <span class="item-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 3h18v18H3zM7 12l3 3 7-7"/>
+                    </svg>
+                </span>
+                <span class="item-label">ALL SCHEMA</span>
+                <span class="arrow">›</span>
+            </a>
+
+            <a href="schema.html" class="item">
+                <span class="item-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 3h13v16M4 7h13v14H4z"/>
+                    </svg>
+                </span>
+                <span class="item-label">SCHEMA LOGS</span>
+                <span class="arrow">›</span>
+            </a>
+
+            <a href="transactions.html" class="item">
+                <span class="item-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 8h18l-2 12H5L3 8ZM3 8l3-5h12l3 5"/>
+                    </svg>
+                </span>
+                <span class="item-label">ALL TRANSACTIONS</span>
+                <span class="arrow">›</span>
+            </a>
+
+            <a href="add-money.html" class="item">
+                <span class="item-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 2h9l6 6v14H5zM14 2v6h6M12 12v7M8.5 15.5h7"/>
+                    </svg>
+                </span>
+                <span class="item-label">ADD MONEY</span>
+                <span class="arrow">›</span>
+            </a>
+
+            <a href="add-money-log.html" class="item">
+                <span class="item-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 6h7l2 3h9v12H3zM12 12v6M9 15h6"/>
+                    </svg>
+                </span>
+                <span class="item-label">ADD MONEY LOG</span>
+                <span class="arrow">›</span>
+            </a>
+
+            <a href="account-levels.html" class="item">
+                <span class="item-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 8a8 8 0 0 0-14-3L3 8M3 3v5h5"/>
+                        <path d="M4 16a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/>
+                    </svg>
+                </span>
+                <span class="item-label">ACCOUNT LEVELS</span>
+                <span class="arrow">›</span>
+            </a>
+
+            <a href="send-money.html" class="item">
+                <span class="item-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 4v16H4V4h12M13 8l4 4-4 4M17 12H9"/>
+                    </svg>
+                </span>
+                <span class="item-label">SEND MONEY</span>
+                <span class="arrow">›</span>
+            </a>
+
+            <button class="item" type="button"
+                    onclick="msg('Send Money Log')">
+                <span class="item-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6 19h12a4 4 0 0 0 .4-8A6.5 6.5 0 0 0 6 9.5 4.8 4.8 0 0 0 6 19Z"/>
+                    </svg>
+                </span>
+                <span class="item-label">SEND MONEY LOG</span>
+                <span class="arrow">›</span>
+            </button>
+
+            <a href="withdraw.html" class="item">
+                <span class="item-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="m2 8 10-6 10 6H2ZM4 21h16M6 10v8M10 10v8M14 10v8M18 10v8"/>
+                    </svg>
+                </span>
+                <span class="item-label">WITHDRAW</span>
+                <span class="arrow">›</span>
+            </a>
+
+        </nav>
+    </section>
+
+    <footer class="footer">
+        © <span id="year"></span> Fednow Shares. All rights reserved.
+    </footer>
+
+</main>
+
+<!-- CUSTOMER SUPPORT BUTTON -->
+
+<button class="chat" type="button"
+        aria-label="Customer Support"
+        aria-expanded="false"
+        aria-controls="supportMenu"
+        onclick="toggleSupport()">
+
+    <span class="bubble"></span>
+    <span class="online"></span>
+</button>
+
+<!-- SUPPORT OPTIONS -->
+
+<div class="support-menu" id="supportMenu">
+
+    <div class="support-title">Customer Support</div>
+
+    <p class="support-description">
+        Need assistance? Contact our support team.
+    </p>
+
+    <button class="support-option" type="button"
+            onclick="openEmail()">
+        <span class="support-icon">
+            <svg viewBox="0 0 24 24">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="m3 7 9 6 9-6"/>
+            </svg>
+        </span>
+        <span>Email Support</span>
+    </button>
+
+    <button class="support-option" type="button"
+            onclick="openWhatsApp()">
+        <span class="support-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/>
+                <path d="M8.5 8.5c.3 2.1 2 4.2 4.2 5.2l1.5-.9c.2-.1.5-.1.7.1l1.2 1c.2.2.2.5 0 .7-.7.7-1.8 1-2.7.7-3.2-1-5.7-3.5-6.7-6.7-.3-.9 0-2 .7-2.7.2-.2.5-.2.7 0l1 1.2c.2.2.2.5.1.7l-.7 1.4Z"/>
+            </svg>
+        </span>
+        <span>WhatsApp Support</span>
+    </button>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+let toastTimer;
+
+function goBack() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = "home.html";
+    }
+}
+
+function msg(text) {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = text + " selected";
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(function() {
+        toast.classList.remove("show");
+    }, 1800);
+}
+
+/* CUSTOMER SUPPORT */
+
+function toggleSupport() {
+    const menu = document.getElementById("supportMenu");
+    const button = document.querySelector(".chat");
+
+    const isOpen = menu.classList.toggle("show");
+
+    button.setAttribute("aria-expanded", String(isOpen));
+}
+
+function openEmail() {
+    window.location.href =
+        "mailto:Fednowsharesteam@gmail.com?subject=Fednow%20Shares%20Support";
+}
+
+function openWhatsApp() {
+    window.open(
+        "https://wa.me/447549589541?text=Hello%20Fednow%20Shares%20Support%2C%20I%20need%20assistance.",
+        "_blank",
+        "noopener,noreferrer"
+    );
+}
+
+/* CLOSE SUPPORT MENU */
+
+document.addEventListener("click", function(event) {
+    const menu = document.getElementById("supportMenu");
+    const button = document.querySelector(".chat");
+
+    if (
+        menu.classList.contains("show") &&
+        !menu.contains(event.target) &&
+        !button.contains(event.target)
+    ) {
+        menu.classList.remove("show");
+        button.setAttribute("aria-expanded", "false");
+    }
+});
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        document.getElementById("supportMenu").classList.remove("show");
+        document.querySelector(".chat").setAttribute("aria-expanded", "false");
+    }
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
